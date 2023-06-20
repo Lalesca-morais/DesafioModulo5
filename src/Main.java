@@ -4,7 +4,7 @@ public class Main {
         Scanner entrada = new Scanner(System.in);
         Metodos metodos = new Metodos();
 
-        while(true) {
+            while(true) {
             System.out.println("==========MENU DE OPÇÕES==========");
             System.out.println("Digite a opção desejada!");
             System.out.println("1 - Cadastrar cliente ");
@@ -15,9 +15,9 @@ public class Main {
             System.out.println("6 - Listar clientes cadastrados");
             System.out.println("7 - Pesquisar compras do cliente  através de seu CPF");
             System.out.println("8 - Pesquisar vendas de um vendedor através de seu e-mail");
-            System.out.println("9 - Sair");
+            System.out.println("9 - Mostrar lista de produtos");
+            System.out.println("10 - Sair");
             int escolhaCliente = entrada.nextInt();
-
 
             switch (escolhaCliente) {
                 case 1:
@@ -52,10 +52,12 @@ public class Main {
                     break;
                 case 9:
                     break;
+                case 10:
+                    metodos.menu();
+                    break;
                 default:
                     System.out.println("Opção inválida!");
                     break;
-
             }
             if (escolhaCliente == 9) {
                 break;

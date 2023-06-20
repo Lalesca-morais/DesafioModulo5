@@ -1,13 +1,19 @@
 import java.time.LocalDate;
 public class Vendas {
-    private String vendedorResponsavel, nomeProduto;
+    private String nomeProduto;
     private LocalDate dataAtual;
+    private String vendedorResponsavel;
     private Cliente cliente;
+    private String cpf;
     private int quantProduto, codigoProduto;
     private LocalDate dataRegistro;
     private double valorTotal, preco;
 
-    public Vendas(String nome, String vendedorResponsavel, String nomeProduto,int  quantProduto, int codigoProduto, LocalDate data) {
+    public Vendas() {
+
+    }
+
+    public Vendas(String nome, String cpf, String vendedorResponsavel, String nomeProduto, int  quantProduto, int codigoProduto, LocalDate data) {
         this.cliente = cliente;
         this.vendedorResponsavel = vendedorResponsavel;
         this.dataRegistro = dataRegistro;
@@ -18,7 +24,6 @@ public class Vendas {
         this.codigoProduto = codigoProduto;
         this.dataAtual = dataAtual;
     }
-
     public LocalDate getDataAtual() {
         return dataAtual;
     }

@@ -5,21 +5,22 @@ public class Metodos {
     private Set<Vendas> vendasCadastradas = new HashSet<>();
     private Set<Vendedor> vendedor = new HashSet<>();
     private ArrayList<Produtos> listaProdutos = new ArrayList<>();
-
     public Set<Vendas> getVendasCadastradas() {
         return vendasCadastradas;
     }
-
     public Set<Cliente> getClientes() {
         return clientes;
     }
-
     public Set<Vendedor> getVendedor() {
         return vendedor;
     }
-
+    public void setVendasCadastradas(Set<Vendas> vendasCadastradas) {this.vendasCadastradas = vendasCadastradas;}
+    public void setClientes(Set<Cliente> clientes) {this.clientes = clientes;}
+    public void setVendedor(Set<Vendedor> vendedor) {this.vendedor = vendedor;}
+    public void setListaProdutos(ArrayList<Produtos> listaProdutos) {this.listaProdutos = listaProdutos;}
+    public void setEntrada(Scanner entrada) {this.entrada = entrada;}
+    Scanner entrada = new Scanner(System.in);
     public void cadastroCliente() {
-        Scanner entrada = new Scanner(System.in);
         String nome, cpf;
         try {
             while (true) {
@@ -36,19 +37,18 @@ public class Metodos {
                 } else {
                     System.out.println("Cliente não cadastrado pois o CPF já existe.");
                 }
+                System.out.println("Digite o seu e-mail: ");
+                String email = entrada.nextLine();
+
+                if (!email.contains("@")) {
+                    System.out.println("Cliente não cadastrado pois o e-mail é inválido.");
+                } else {
+                    Cliente cliente1 = new Cliente(nome, cpf, email);
+                    clientes.add(cliente1);
+                    System.out.println("Cliente cadastrado com sucesso!");
+                }
                 break;
             }
-            System.out.println("Digite o seu e-mail: ");
-            String email = entrada.nextLine();
-
-            if (!email.contains("@")) {
-                System.out.println("Cliente não cadastrado pois o e-mail é inválido.");
-            } else {
-                Cliente cliente1 = new Cliente(nome, cpf, email);
-                clientes.add(cliente1);
-                System.out.println("Cliente cadastrado com sucesso!");
-            }
-            System.out.println();
         } catch (NumberFormatException exception) {
             System.out.println("Entrada inválida" + exception.getMessage());
         } catch (IllegalArgumentException | UnsupportedOperationException exception) {
@@ -56,7 +56,6 @@ public class Metodos {
         }
     }
     public void cadastrarVendedor() {
-        Scanner entrada = new Scanner(System.in);
         try {
             String nome, cpf;
 
@@ -105,7 +104,7 @@ public class Metodos {
         }
     }
         public void cadastrarVendas () {
-            Scanner entrada = new Scanner(System.in);
+            LocalDate data = LocalDate.now();
 
             System.out.println("----- Cadastro de Vendas -----");
             System.out.println("Digite o nome do cliente para cadastrar a venda: ");
@@ -121,8 +120,7 @@ public class Metodos {
                     existeCpf++;
                     System.out.println("CPF não validado pois já existe na lista");
                 }
-            }
-            if (existeCpf == 0) {
+            }if (existeCpf == 0) {
                 System.out.println("CPF validado!");
             }
             System.out.println();
@@ -131,17 +129,16 @@ public class Metodos {
             int quantProduto = entrada.nextInt();
             entrada.nextLine();
 
-            System.out.println("Digite o vendedor responsável");
-            String vendedorResponsavel = entrada.nextLine();
+            System.out.println("Digite o CPF do vendedor responsável");
+            cpf = entrada.nextLine();
 
             System.out.println("Digite o nome do produto: ");
             String nomeProduto = entrada.nextLine();
 
             System.out.println("Digite o código do produto: ");
             int codigoProduto = entrada.nextInt();
-            LocalDate data = LocalDate.now();
 
-            vendasCadastradas.add(new Vendas(nome, vendedorResponsavel, nomeProduto, quantProduto, codigoProduto, data));
+           //vendasCadastradas.add(new Vendas(nome, cpf,quantProduto, codigoProduto));
         }
         public void buscarVendas () {
 
@@ -152,7 +149,6 @@ public class Metodos {
 
                 for (Vendas venda : vendasCadastradas) {
                     int cont = 0;
-                    cont++;
                     System.out.println("Código: " + venda.getCodigoProduto());
                     System.out.println("Nome: " + venda.getNomeProduto());
                     System.out.println("Preço: " + venda.getPreco());
@@ -161,6 +157,7 @@ public class Metodos {
                     System.out.println("Valor total: " + venda.getValorTotal());
                     System.out.println("Vendedor responsável: " + venda.getVendedorResponsavel());
                     System.out.println("Cliente: " + venda.getCliente());
+                    cont++;
                 }
             }
         }
@@ -178,6 +175,7 @@ public class Metodos {
                 }
             }
         }
+
         public void buscarCliente () {
             if (clientes.isEmpty()) {
                 System.out.println("Cliente não encontrado");
@@ -194,9 +192,9 @@ public class Metodos {
             }
         }
         public void compraPeloCliente () {
-            Scanner entrada = new Scanner(System.in);
             System.out.println("Insira o cpf do cliente: ");
             String cpfCliente = entrada.nextLine();
+
             for (Cliente cliente : clientes) {
                 if (cliente.getCpf().contains(cpfCliente)) {
                     for (Vendas vendas : vendasCadastradas) {
@@ -214,8 +212,6 @@ public class Metodos {
             }
         }
         public void vendasPorVendedor () {
-            Scanner entrada = new Scanner(System.in);
-
             System.out.println("Insira o e-mail do vendedor: ");
             String emailVendedor = entrada.nextLine();
 
