@@ -1,12 +1,14 @@
-import java.util.Scanner;
+import java.util.*;
+
 public class Main {
     public static void main(String[] args) {
         Scanner entrada = new Scanner(System.in);
         Metodos metodos = new Metodos();
-
-            while(true) {
+        Login login = new Login();
+        Criptografar criptografar = new Criptografar();
+        Set<Cliente> clientes = new HashSet<>();
+        while (true) {
             System.out.println("==========MENU DE OPÇÕES==========");
-            System.out.println("Digite a opção desejada!");
             System.out.println("1 - Cadastrar cliente ");
             System.out.println("2 - Cadastrar vendedor");
             System.out.println("3 - Cadastrar venda");
@@ -16,7 +18,8 @@ public class Main {
             System.out.println("7 - Pesquisar compras do cliente  através de seu CPF");
             System.out.println("8 - Pesquisar vendas de um vendedor através de seu e-mail");
             System.out.println("9 - Mostrar lista de produtos");
-            System.out.println("10 - Sair");
+            System.out.println("10 - Criar senha criptografada");
+            System.out.println("11 - Sair");
             int escolhaCliente = entrada.nextInt();
 
             switch (escolhaCliente) {
@@ -51,17 +54,29 @@ public class Main {
                     metodos.vendasPorVendedor();
                     break;
                 case 9:
+                    metodos.menu();
                     break;
                 case 10:
-                    metodos.menu();
+                    System.out.println("Informe seu CPF: ");
+                    String cpf = entrada.nextLine();
+                    entrada.nextLine();
+
+                    Optional<Cliente> cliente = metodos.getClientes().stream().filter(x -> x.getCpf().equals(cpf)).findFirst();
+                    if (cliente.isPresent()) {
+                        criptografar.criptografarSenha(cliente.get());
+                    } else {
+                        System.out.println("É necessário realizar o cadastro primeiro!");
+                        metodos.cadastroCliente();
+                    }
                     break;
                 default:
                     System.out.println("Opção inválida!");
                     break;
             }
-            if (escolhaCliente == 9) {
+            if (escolhaCliente == 11) {
                 break;
             }
         }
     }
 }
+

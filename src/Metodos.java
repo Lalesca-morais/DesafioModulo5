@@ -43,7 +43,7 @@ public class Metodos {
                 if (!email.contains("@")) {
                     System.out.println("Cliente não cadastrado pois o e-mail é inválido.");
                 } else {
-                    Cliente cliente1 = new Cliente(nome, cpf, email);
+                    Cliente cliente1 = new Cliente(nome, email, cpf);
                     clientes.add(cliente1);
                     System.out.println("Cliente cadastrado com sucesso!");
                 }

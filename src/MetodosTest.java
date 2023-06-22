@@ -2,13 +2,13 @@ import org.junit.Test;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 public class MetodosTest {
     Metodos metodos = new Metodos();
     @Test
     public void naoDeveriaMostrarSeBuscaVendas() {
         metodos.buscarVendas();
-        assertEquals(metodos.getVendasCadastradas(), Collections.emptySet());
+        assertEquals(metodos.getVendasCadastradas(),Collections.emptySet());
     }
     @Test
     public void deveriaMostrarSeBuscaVendas() {
